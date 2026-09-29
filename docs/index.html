@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JsonStudio — Online JSON Beautifier & Editor</title>
+  <meta name="description" content="Zero-dependency, single-file JSON editor + mindmap viewer for Web, Vue 3 and React 18.">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <script src="assets/nav.js"></script>
+  <script>JsonSite.nav('web');</script>
+
+  <!-- ===== Hero banner (50vh) ===== -->
+  <header class="hero">
+    <h1><span class="brand">JSON</span> Online Beautifier &amp; Editor</h1>
+    <p>
+      A zero-dependency, single-file JSON editor with a structured editing view and a mind-map view.
+      Works with plain Web, Vue 3 and React 18 — no build step, no framework required.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#demo">Try it now</a>
+      <a class="btn btn-ghost" href="https://github.com/YOUR_USERNAME/json-editor" target="_blank" rel="noopener">Star on GitHub</a>
+    </div>
+  </header>
+
+  <!-- ===== Live demo ===== -->
+  <section class="section" id="demo">
+    <h2>Live Demo</h2>
+    <p class="section-sub">This is the real editor running on this page — edit keys, values, insert blocks, switch to the mind-map tab. Nothing is simulated.</p>
+    <div class="demo-card">
+      <json data-title="Playground — edit me" data-max-height="60vh">{
+  "project": "json-editor",
+  "version": "1.0.0",
+  "features": ["structured editor", "mindmap", "text view"],
+  "stats": { "size": "45KB", "dependencies": 0, "frameworks": ["web", "vue3", "react18"] },
+  "nested": { "deep": [true, null, { "works": "everywhere" }] }
+}</json>
+    </div>
+  </section>
+
+  <!-- ===== Usage ===== -->
+  <section class="section" id="usage">
+    <h2>How to Use</h2>
+    <p class="section-sub">Three ways to integrate — all without a build step. Full parameter reference in the <a href="help.html">Docs</a>.</p>
+
+    <div class="usage">
+      <h3>Option 1: Vanilla JS (simplest) <span class="badge">Web</span></h3>
+      <p>Include one script, then use any of three declarative or programmatic styles.</p>
+      <pre class="code">&lt;<span class="cm">!-- A: &lt;json&gt; tag, auto-rendered, multiple instances --&gt;</span>
+&lt;json data-title="Config"&gt;{"name": "Jakey", "tags": ["admin"]}&lt;/json&gt;
+
+<span class="cm">&lt;!-- B: any element with tag="json" --&gt;</span>
+&lt;div tag="json" data-theme="dark"&gt;{"a": 1}&lt;/div&gt;
+
+<span class="cm">&lt;!-- C: container + JS call --&gt;</span>
+&lt;div id="editor"&gt;&lt;/div&gt;
+&lt;script src="json-editor.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var editor = JED.create({
+    el: '#editor',
+    title: 'My Editor',
+    theme: 'dark',
+    max_height: '50vh',
+    value: { hello: 'world' },
+    onChange: function (json) { console.log(json); }
+  });
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="usage">
+      <h3>Option 2: Vue 3 <span class="badge">Vue</span></h3>
+      <p>Include json-vue.js (engine included), register the global component, use v-model.</p>
+      <pre class="code">&lt;script src="https://unpkg.com/vue@3"&gt;&lt;/script&gt;
+&lt;script src="json-vue.js"&gt;&lt;/script&gt;
+
+&lt;div id="app"&gt;
+  &lt;json-editor v-model="config" theme="dark" /&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  Vue.createApp({ data: () =&gt; ({ config: { a: 1 } }) })
+     .use(JED.vue)      <span class="cm">// registers the global &lt;json-editor&gt; component</span>
+     .mount('#app');
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="usage">
+      <h3>Option 3: React 18 <span class="badge">React</span></h3>
+      <p>Include json-react.js (engine included), no JSX needed — plain createElement.</p>
+      <pre class="code">&lt;script src="https://unpkg.com/react@18/umd/react.production.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"&gt;&lt;/script&gt;
+&lt;script src="json-react.js"&gt;&lt;/script&gt;
+
+&lt;div id="root"&gt;&lt;/div&gt;
+&lt;script&gt;
+  const e = React.createElement;
+  function App() {
+    const [data, setData] = React.useState({ a: 1 });
+    return e(JED.react.component, { value: data, onChange: setData });
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(e(App));
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="usage">
+      <h3>npm install</h3>
+      <pre class="code">npm install @jed/json-editor
+
+<span class="cm">// import as needed in your project:</span>
+import '@jed/json-editor'         <span class="cm">// vanilla</span>
+import '@jed/json-editor/vue'     <span class="cm">// Vue 3</span>
+import '@jed/json-editor/react'   <span class="cm">// React 18</span></pre>
+    </div>
+  </section>
+
+  <!-- ===== Download ===== -->
+  <section class="section" id="download">
+    <h2>Download</h2>
+    <p class="section-sub">Download a single file and use it anywhere — or install via npm / reference the CDN.</p>
+    <div class="download-grid">
+      <div class="download-card">
+        <h3>json-editor.js</h3>
+        <p>Core engine for plain HTML pages. ~45 KB, zero dependencies.</p>
+        <a class="btn btn-dark" href="assets/js/json-editor.js" download>Download</a>
+      </div>
+      <div class="download-card">
+        <h3>json-vue.js</h3>
+        <p>Core + Vue 3 adapter in one file. Includes everything above.</p>
+        <a class="btn btn-dark" href="assets/js/json-vue.js" download>Download</a>
+      </div>
+      <div class="download-card">
+        <h3>json-react.js</h3>
+        <p>Core + React 18 adapter in one file. No JSX needed.</p>
+        <a class="btn btn-dark" href="assets/js/json-react.js" download>Download</a>
+      </div>
+      <div class="download-card">
+        <h3>Source on GitHub</h3>
+        <p>Clone, star, open issues, or contribute.</p>
+        <a class="btn btn-outline" href="https://github.com/YOUR_USERNAME/json-editor" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+  </section>
+
+  <script>JsonSite.footer();</script>
+
+  <!-- 编辑器引擎（首页 live demo 用） -->
+  <script>document.write('<script src="assets/js/json-editor.js?v=' + Date.now() + '"><\/script>');</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — JsonStudio</title>
+  <meta name="description" content="Full documentation for JsonStudio JSON editor: installation, API, options, views and events.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .doc-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 20px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+    @media (max-width: 800px) { .doc-wrap { grid-template-columns: 1fr; } }
+    .doc-toc { position: sticky; top: 72px; align-self: start; font-size: 14px; }
+    .doc-toc a { display: block; padding: 4px 10px; color: var(--muted); border-left: 2px solid transparent; }
+    .doc-toc a:hover { color: var(--accent); text-decoration: none; }
+    .doc-body h2 { font-size: 24px; margin: 40px 0 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+    .doc-body h2:first-child { margin-top: 0; border-top: none; }
+    .doc-body h3 { font-size: 17px; margin: 24px 0 8px; }
+    .doc-body p, .doc-body li { color: var(--fg); font-size: 15px; }
+    table.params { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+    table.params th, table.params td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; vertical-align: top; }
+    table.params th { background: var(--card-bg); font-weight: 600; }
+    table.params td:first-child { font-family: Consolas, monospace; color: #cf222e; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <script src="assets/nav.js"></script>
+  <script>JsonSite.nav('docs');</script>
+
+  <div class="doc-wrap">
+    <!-- ===== TOC ===== -->
+    <aside class="doc-toc">
+      <a href="#install">Installation</a>
+      <a href="#quickstart">Quick Start</a>
+      <a href="#options">Options</a>
+      <a href="#api">Instance API</a>
+      <a href="#events">Events / Callbacks</a>
+      <a href="#views">Views</a>
+      <a href="#editing">Editing Rules</a>
+      <a href="#declarative">Declarative Tags</a>
+      <a href="#vue-api">Vue Component</a>
+      <a href="#react-api">React Component</a>
+      <a href="#theming">Theming</a>
+      <a href="#faq">FAQ</a>
+    </aside>
+
+    <!-- ===== Body ===== -->
+    <main class="doc-body">
+      <h2 id="install">Installation</h2>
+      <p>Three ways — pick one. All of them are zero-dependency and require no build step.</p>
+      <pre class="code"><span class="cm">// 1. CDN (jsdelivr, use the tag you need)</span>
+&lt;script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/json-editor@main/src/json-editor.js"&gt;&lt;/script&gt;
+
+<span class="cm">// 2. npm</span>
+npm install @jed/json-editor
+<span class="cm">// entry file:</span>
+import '@jed/json-editor'         <span class="cm">// vanilla</span>
+import '@jed/json-editor/vue'     <span class="cm">// Vue 3</span>
+import '@jed/json-editor/react'   <span class="cm">// React 18</span>
+
+<span class="cm">// 3. Download a single file from the Download section and host it yourself</span></pre>
+      <p><strong>File selection guide:</strong> <code>json-editor.js</code> for plain HTML (vanilla), <code>json-vue.js</code> already includes the core + Vue adapter, <code>json-react.js</code> includes core + React adapter. Never load two engine files on the same page.</p>
+
+      <h2 id="quickstart">Quick Start</h2>
+      <p>The fastest path with vanilla JS — a container and one call:</p>
+      <pre class="code">&lt;div id="editor"&gt;&lt;/div&gt;
+&lt;script src="json-editor.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var editor = JED.create({ el: '#editor', value: { hello: 'world' } });
+&lt;/script&gt;</pre>
+      <p>Or fully declarative, no JavaScript at all:</p>
+      <pre class="code">&lt;json data-title="Config"&gt;{"a": 1, "b": [2, 3]}&lt;/json&gt;</pre>
+
+      <h2 id="options">Options</h2>
+      <p>All options passed to <code>JED.create(options)</code>:</p>
+      <table class="params">
+        <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+        <tr><td>el</td><td>string|Element</td><td>required</td><td>Container CSS selector or DOM element.</td></tr>
+        <tr><td>value</td><td>Object|Array|string</td><td><code>{}</code></td><td>Initial JSON. Object/Array directly, or a JSON string.</td></tr>
+        <tr><td>title</td><td>string</td><td>'JSON 编辑器'</td><td>Title shown in the header bar.</td></tr>
+        <tr><td>theme</td><td>'light'|'dark'</td><td>'light'</td><td>Color theme.</td></tr>
+        <tr><td>height</td><td>string</td><td>—</td><td>Fixed height, e.g. <code>'420px'</code>. Omit for auto-fit.</td></tr>
+        <tr><td>max_height</td><td>string</td><td>'50vh'</td><td>Max height; content beyond scrolls inside 5px scrollbars.</td></tr>
+        <tr><td>font_size</td><td>string</td><td>—</td><td>Base font size for the whole editor, e.g. <code>'13px'</code>.</td></tr>
+        <tr><td>defaultView</td><td>string</td><td>'editor'</td><td>Initial tab: <code>'editor'</code> | <code>'mindmap'</code> | <code>'text'</code>.</td></tr>
+        <tr><td>readonly</td><td>boolean</td><td>false</td><td>Disables all editing; view-only.</td></tr>
+        <tr><td>onChange</td><td>function(json)</td><td>—</td><td>Fires after every edit. Receives the current JSON object.</td></tr>
+        <tr><td>onError</td><td>function(errors)</td><td>—</td><td>Fires when validation fails. <code>errors</code> is an array of <code>{path, msg}</code>.</td></tr>
+        <tr><td>onSave</td><td>function(json, valid)</td><td>—</td><td>Legacy save callback (save button was removed in v1.0; kept for compatibility).</td></tr>
+      </table>
+
+      <h2 id="api">Instance API</h2>
+      <pre class="code">var editor = JED.create({ el: '#editor', value: {...} });
+
+editor.get()          <span class="cm">// → current JSON as a JS object</span>
+editor.get_text()     <span class="cm">// → pretty-printed JSON string (2-space indent)</span>
+editor.set(value)     <span class="cm">// replace content; accepts object or JSON string; re-renders</span>
+editor.validate()     <span class="cm">// → array of {path, msg}; empty array = valid</span>
+editor.view(name)     <span class="cm">// switch tab: 'editor' | 'mindmap' | 'text'</span>
+editor.destroy()      <span class="cm">// remove the editor and clean up the container</span>
+
+<span class="cm">// scan() re-scans the page for new &lt;json&gt; / [tag="json"] elements</span>
+<span class="cm">// (call it after dynamically inserting markup)</span>
+JED.scan();</pre>
+
+      <h2 id="events">Events / Callbacks</h2>
+      <pre class="code">JED.create({
+  el: '#editor',
+  value: { a: 1 },
+
+  <span class="cm">// fires after ANY edit (add/remove/rename/change, in editor or mindmap)</span>
+  onChange: function (json) {
+    console.log('current value:', json);
+  },
+
+  <span class="cm">// fires when structure validation fails (empty/duplicate keys, depth &gt; 100)</span>
+  onError: function (errors) {
+    // errors: [{ path: '$.a.b', msg: 'key 重复: "b"' }, ...]
+  }
+});</pre>
+      <p>Validation runs automatically on every structural edit. Errors render as an inline red panel under the editor.</p>
+
+      <h2 id="views">Views</h2>
+      <p>Three tabs share one model; every edit is instantly reflected in all of them.</p>
+      <table class="params">
+        <tr><th>Tab</th><th>What it does</th><th>Interactions</th></tr>
+        <tr><td>editor</td><td>Structured tree editor</td><td>Click <code>▼</code> to collapse one level, <code>⊞</code> to collapse all descendants. Hover a row for <code>+ ↑ ↓ ×</code>. Hover a <code>{...}</code> range to highlight it. Click any key/value for inline editing. Click a closing brace to collapse.</td></tr>
+        <tr><td>mindmap</td><td>Tree visualization</td><td>Drag empty canvas to pan, mouse-wheel to zoom (30%–300%, centered on cursor). Double-click a node to jump to the editor. <code>+</code> inserts a child then switches to the editor. Root node shows <code>root(n)</code>.</td></tr>
+        <tr><td>text</td><td>Raw JSON textarea</td><td>Manual edits reveal a floating “Apply to structure” button (top-right) that parses text back into the editor. Invalid JSON shows a warning.</td></tr>
+      </table>
+
+      <h2 id="editing">Editing Rules</h2>
+      <p>When you commit an inline value edit, the input is auto-detected in this order:</p>
+      <table class="params">
+        <tr><th>You type</th><th>Result</th></tr>
+        <tr><td><code>{"x": 1}</code></td><td>Converted to an object node with children — keep editing inside it</td></tr>
+        <tr><td><code>[1, 2]</code></td><td>Converted to an array node</td></tr>
+        <tr><td><code>true</code> / <code>false</code> / <code>null</code></td><td>Boolean / null literal (case-sensitive)</td></tr>
+        <tr><td><code>123</code>, <code>-3.14</code>, <code>1e5</code></td><td>Number (quotes removed automatically)</td></tr>
+        <tr><td><code>"text"</code></td><td>String (escapes parsed)</td></tr>
+        <tr><td>anything else</td><td>Plain string — quotes added for you</td></tr>
+      </table>
+      <p><strong>Container-aware insertion:</strong> inside <code>{}</code> a new key-value pair is created (<code>new_key</code>, auto-deduplicated); inside <code>[]</code> a plain element is created.</p>
+
+      <h2 id="declarative">Declarative Tags</h2>
+      <p>For static pages, skip JavaScript entirely. Every <code>&lt;json&gt;</code> element and any element with <code>tag="json"</code> is auto-initialized on DOM ready (or call <code>JED.scan()</code> after dynamic insertion).</p>
+      <pre class="code">&lt;json data-title="Config"
+      data-theme="dark"
+      data-max-height="50vh"
+      data-height="400px"
+      data-font-size="13px"
+      data-readonly&gt;{"a": 1}&lt;/json&gt;
+
+&lt;div tag="json" data-title="Order"&gt;{"id": "A1024"}&lt;/div&gt;</pre>
+      <table class="params">
+        <tr><th>Attribute</th><th>Maps to</th></tr>
+        <tr><td>data-title</td><td>title</td></tr>
+        <tr><td>data-theme</td><td>theme</td></tr>
+        <tr><td>data-height</td><td>height</td></tr>
+        <tr><td>data-max-height</td><td>max_height</td></tr>
+        <tr><td>data-font-size</td><td>font_size</td></tr>
+        <tr><td>data-readonly (presence)</td><td>readonly: true</td></tr>
+        <tr><td>data-value (optional)</td><td>value — otherwise the element's text content is parsed</td></tr>
+      </table>
+      <p>The instance is stored on the element as <code>elem.__jed</code>, so you can still call the API: <code>document.querySelector('json').__jed.get()</code>.</p>
+
+      <h2 id="vue-api">Vue Component</h2>
+      <p>Load <code>json-vue.js</code> (core included) and register once:</p>
+      <pre class="code">app.use(JED.vue);   <span class="cm">// registers &lt;json-editor&gt; globally</span></pre>
+      <table class="params">
+        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+        <tr><td>v-model</td><td>Object|Array|string</td><td><code>{}</code></td><td>Two-way binding; edits emit <code>update:modelValue</code>.</td></tr>
+        <tr><td>title</td><td>string</td><td>'JSON 编辑器'</td><td>Reactive — changing it rebuilds the header.</td></tr>
+        <tr><td>theme</td><td>string</td><td>'light'</td><td>Reactive — switching rebuilds with data preserved.</td></tr>
+        <tr><td>height / max_height / font_size</td><td>string</td><td>see options</td><td>Same as vanilla options.</td></tr>
+        <tr><td>default_view</td><td>string</td><td>'editor'</td><td>Same as vanilla defaultView.</td></tr>
+        <tr><td>readonly</td><td>boolean</td><td>false</td><td>Same as vanilla.</td></tr>
+      </table>
+      <p>External state changes flow in automatically (deep-watched, with loop protection). Editable instance is available via the component's internal <code>_jed</code> if you need direct API access.</p>
+
+      <h2 id="react-api">React Component</h2>
+      <p>Load <code>json-react.js</code> (core included) — a plain function component, no JSX required:</p>
+      <pre class="code">const e = React.createElement;
+
+e(JED.react.component, {
+  value: data,          <span class="cm">// controlled value</span>
+  onChange: setData,    <span class="cm">// unidirectional flow</span>
+  title: 'Editor', theme: 'dark', max_height: '50vh',
+  default_view: 'editor', readonly: false
+});</pre>
+      <p>Props mirror the vanilla options. External <code>value</code> changes are diffed (JSON string compare) and applied with loop protection; theme/title changes rebuild the instance preserving data.</p>
+
+      <h2 id="theming">Theming</h2>
+      <p>Two built-in themes via <code>theme: 'light' | 'dark'</code>. All colors are CSS variables on the <code>.jed-root</code> container — override them in your own stylesheet without touching the library:</p>
+      <pre class="code">.jed-root {
+  --jed-accent: #0969da;   <span class="cm">/* buttons, active tab */</span>
+  --jed-key: #0550ae;      <span class="cm">/* key color */</span>
+  --jed-str: #116329;      <span class="cm">/* string values */</span>
+  --jed-num: #953800;      <span class="cm">/* numbers, [] braces */</span>
+  --jed-bool: #8250df;     <span class="cm">/* booleans */</span>
+  --jed-brace: #cf222e;    <span class="cm">/* {} braces (depth-0) */</span>
+  --jed-hover: #eef1f4;    <span class="cm">/* hover highlight */</span>
+}</pre>
+
+      <h2 id="faq">FAQ</h2>
+      <p><strong>Q: Can I use both json-vue.js and json-editor.js on one page?</strong><br>
+      No — both define <code>window.JED</code>. Load exactly one engine file per page.</p>
+
+      <p><strong>Q: Does it work offline / from file:// ?</strong><br>
+      Yes. No network requests, no web workers, no fetch — a plain double-clicked HTML file works.</p>
+
+      <p><strong>Q: How large is the JSON it can handle?</strong><br>
+      Comfortable up to a few thousand nodes. Beyond that the DOM tree gets heavy; collapse branches you don't need.</p>
+
+      <p><strong>Q: Is the value order preserved?</strong><br>
+      Yes for rendering and editing. JSON objects are semantically unordered, but JED keeps insertion order and supports reordering with <code>↑</code>/<code>↓</code>.</p>
+
+      <p><strong>Q: How do I get notified of changes in a form workflow?</strong><br>
+      Use <code>onChange</code> (vanilla), <code>v-model</code> (Vue) or <code>onChange</code> (React). All receive the plain JSON object — <code>JSON.stringify</code> it if you need a string.</p>
+    </main>
+  </div>
+
+  <script>JsonSite.footer();</script>
+</body>
+</html>

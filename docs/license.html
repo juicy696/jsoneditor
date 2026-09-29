@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>License — JsonStudio</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <script src="assets/nav.js"></script>
+  <script>JsonSite.nav('');</script>
+
+  <section class="section">
+    <h2>License</h2>
+    <p class="section-sub">JSON Editor (JED) is released under the Apache License, Version 2.0.</p>
+
+    <div class="usage">
+      <h3>What you can do</h3>
+      <ul>
+        <li>Use the library free of charge, including commercial projects</li>
+        <li>Modify, distribute, and embed it in your own products</li>
+        <li>Benefit from the included patent grant</li>
+      </ul>
+    </div>
+
+    <div class="usage">
+      <h3>What you must keep</h3>
+      <ul>
+        <li>The original copyright notice: <em>Copyright 2026 Jakey Zhu</em></li>
+        <li>The <code>LICENSE</code> and <code>NOTICE</code> files when redistributing</li>
+        <li>Attribution in modified files (a header comment is fine)</li>
+      </ul>
+    </div>
+
+    <div class="usage">
+      <h3>Commercial licensing</h3>
+      <p>
+        Need to remove attribution, integrate into a closed product without the
+        Apache terms, or want dedicated support and custom development?
+        Contact: <a href="mailto:zhuxi0906@gmail.com">zhuxi0906@gmail.com</a>
+      </p>
+    </div>
+
+    <div class="usage">
+      <h3>Full license text</h3>
+      <pre class="code" style="max-height:400px; overflow:auto;" id="license-text">Loading…</pre>
+    </div>
+  </section>
+
+  <script>JsonSite.footer();</script>
+  <script>
+    fetch('LICENSE').then(function (r) {
+      return r.ok ? r.text() : Promise.reject(new Error('not found'));
+    }).then(function (t) {
+      document.getElementById('license-text').textContent = t;
+    }).catch(function () {
+      document.getElementById('license-text').textContent =
+        'See the LICENSE file at the repository root: https://github.com/YOUR_USERNAME/json-editor';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 3 Integration — JsonStudio</title>
+  <meta name="description" content="Use JsonStudio JSON editor in Vue 3 with v-model binding. Single file, zero dependency.">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <script src="assets/nav.js"></script>
+  <script>JsonSite.nav('vue');</script>
+
+  <!-- ===== Hero banner ===== -->
+  <header class="hero">
+    <h1><span class="brand">JSON</span> Editor for Vue 3</h1>
+    <p>
+      One file: the full editor engine + Vue 3 adapter. Register a global component,
+      bind with v-model, done — no build step, no JSX, no extra dependencies.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#demo">Try it now</a>
+      <a class="btn btn-ghost" href="https://github.com/YOUR_USERNAME/json-editor" target="_blank" rel="noopener">Star on GitHub</a>
+    </div>
+  </header>
+
+  <!-- ===== Live demo ===== -->
+  <section class="section" id="demo">
+    <h2>Live Demo</h2>
+    <p class="section-sub">A real &lt;json-editor&gt; Vue component running on this page, synced with the state below.</p>
+    <div id="app">
+      <div class="demo-card">
+        <json-editor v-model="config" title="Vue Playground — edit me" :theme="theme" max_height="60vh" />
+      </div>
+      <div class="row" style="margin:16px 0; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn btn-outline" @click="add_field">+ Add field (external state)</button>
+        <button class="btn btn-outline" @click="toggle_theme">Toggle theme ({{ theme }})</button>
+      </div>
+      <p style="color:#57606a; margin:8px 0 4px;">Live v-model value (updated as you edit):</p>
+      <pre class="code">{{ pretty(config) }}</pre>
+    </div>
+  </section>
+
+  <!-- ===== Usage ===== -->
+  <section class="section" id="usage">
+    <h2>How to Use in Vue</h2>
+    <p class="section-sub">json-vue.js contains the full editor engine — this single file is all you need.</p>
+
+    <div class="usage">
+      <h3>Direct CDN include (recommended)</h3>
+      <pre class="code">&lt;script src="https://unpkg.com/vue@3"&gt;&lt;/script&gt;
+&lt;script src="json-vue.js"&gt;&lt;/script&gt;
+
+&lt;div id="app"&gt;
+  <span class="cm">&lt;!-- v-model two-way binding: edits sync automatically --&gt;</span>
+  &lt;json-editor v-model="config" theme="dark" max_height="50vh" /&gt;
+&lt;/div&gt;
+&lt;script&gt;
+  Vue.createApp({
+    data: () =&gt; ({ config: { name: 'Jakey', tags: ['admin'] } })
+  }).use(JED.vue)   <span class="cm">// one line registers the global &lt;json-editor&gt; component</span>
+    .mount('#app');
+&lt;/script&gt;</pre>
+    </div>
+
+    <div class="usage">
+      <h3>Component Props</h3>
+      <pre class="code">&lt;json-editor
+  v-model="config"       <span class="cm">// bound value (object or JSON string)</span>
+  title="Title"          <span class="cm">// editor title</span>
+  theme="dark"           <span class="cm">// light | dark, reactive switching supported</span>
+  height="420px"         <span class="cm">// fixed height (optional)</span>
+  max_height="50vh"      <span class="cm">// max height, scrolls on overflow, default 50vh</span>
+  font_size="13px"       <span class="cm">// text size (optional)</span>
+  default_view="editor"  <span class="cm">// initial view: editor | mindmap | text</span>
+  readonly                <span class="cm">// read-only mode</span>
+/&gt;</pre>
+    </div>
+
+    <div class="usage">
+      <h3>npm install</h3>
+      <pre class="code">npm install @jed/json-editor
+
+<span class="cm">// main.js</span>
+import '@jed/json-editor/vue'</pre>
+    </div>
+  </section>
+
+  <!-- ===== Download ===== -->
+  <section class="section" id="download">
+    <h2>Download</h2>
+    <p class="section-sub">Get the single-file Vue build, or the full source on GitHub.</p>
+    <div class="download-grid">
+      <div class="download-card">
+        <h3>json-vue.js</h3>
+        <p>Core engine + Vue 3 adapter. ~47 KB.</p>
+        <a class="btn btn-dark" href="assets/js/json-vue.js" download>Download</a>
+      </div>
+      <div class="download-card">
+        <h3>Source on GitHub</h3>
+        <p>Clone, star, open issues, or contribute.</p>
+        <a class="btn btn-outline" href="https://github.com/YOUR_USERNAME/json-editor" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+  </section>
+
+  <script>JsonSite.footer();</script>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script>document.write('<script src="assets/js/json-vue.js?v=' + Date.now() + '"><\/script>');</script>
+  <script>
+    Vue.createApp({
+      data: function () {
+        return {
+          config: { project: 'vue-demo', version: 1.0, features: ['editor', 'mindmap', 'text'], nested: { deep: [true, null, 'end'] } },
+          theme: 'light',
+          counter: 1
+        };
+      },
+      methods: {
+        pretty: function (v) { return JSON.stringify(v, null, 2); },
+        add_field: function () {
+          var n = this.counter++;
+          this.config['new_field_' + n] = n % 2 === 0 ? { n: n } : 'Value ' + n;
+        },
+        toggle_theme: function () { this.theme = this.theme === 'dark' ? 'light' : 'dark'; }
+      }
+    }).use(JED.vue).mount('#app');
+  </script>
+</body>
+</html>

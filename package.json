@@ -1,0 +1,42 @@
+{
+  "name": "@jed/json-editor",
+  "version": "1.0.0",
+  "description": "Zero-dependency, single-file JSON editor + mindmap viewer. Works with vanilla JS, Vue 3 and React 18. 双视图 JSON 编辑器：结构化编辑 + 思维导图，单文件零依赖。",
+  "main": "src/json-editor.js",
+  "exports": {
+    ".": "./src/json-editor.js",
+    "./vue": "./src/json-vue.js",
+    "./react": "./src/json-react.js"
+  },
+  "files": [
+    "src",
+    "demo",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/validate.js"
+  },
+  "keywords": [
+    "json",
+    "json-editor",
+    "mindmap",
+    "tree-view",
+    "vue",
+    "react",
+    "vanilla-js",
+    "zero-dependency",
+    "single-file",
+    "no-build"
+  ],
+  "author": "Jakey Zhu <zhuxi0906@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/json-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/json-editor/issues"
+  },
+  "homepage": "https://YOUR_USERNAME.github.io/json-editor/"
+}
