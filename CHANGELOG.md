@@ -1,6 +1,6 @@
 # v1.0.0 — 2026-09-29
 
-First public release. / 首次公开发布。
+First public release.
 
 ## Core (json-editor.js)
 
@@ -11,6 +11,7 @@ First public release. / 首次公开发布。
 - Container-matched insertion: `{}` → key-value pairs, `[]` → array elements
 - Per-depth brace colors, 5px scrollbars, max-height scrolling (default 50vh),
   light/dark themes, readonly mode
+- Runtime theme switching via `set_theme()` (no re-render)
 - Declarative usage: `<json>` tags and `[tag="json"]` elements, auto-scanned,
   configurable via data-* attributes
 
@@ -19,11 +20,11 @@ First public release. / 首次公开发布。
 - Single-file build: core + adapter
 - `app.use(JED.vue)` global `<json-editor>` component
 - v-model two-way binding with loop protection
-- Reactive theme/title changes
+- Reactive theme hot-switching; title changes rebuild with state preserved
 
 ## React 18 adapter (json-react.js)
 
 - Single-file build: core + adapter
 - `JED.react.component` function component (no JSX required)
 - onChange unidirectional flow, external-value sync with loop protection
-- Theme/title changes rebuild instance preserving data
+- Theme hot-switching; title changes rebuild preserving data

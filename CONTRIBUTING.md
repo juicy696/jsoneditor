@@ -1,31 +1,40 @@
-﻿# Contributing / 贡献指南
+# Contributing
 
-Thanks for your interest in contributing! / 感谢你有兴趣贡献！
+Thanks for your interest in contributing!
 
-## Dev setup / 开发环境
+## Dev setup
 
 No build step required. The library is plain JavaScript.
 
 ```bash
 git clone https://github.com/juicy696/jsoneditor.git
-cd json-editor
-# open demo/index.html in a browser — that's the whole dev environment
+cd jsoneditor
+# open docs/index.html in a browser — that's the whole dev environment
 ```
 
-## Code style / 代码规范
+## Code style
 
 - Variable naming: **snake_case** everywhere (no camelCase for new code)
 - Single-file constraint: each adapter (vue/react) must stay self-contained with the core
-- All user-visible strings should work for both zh-CN and en (bilingual comments OK)
+- Keep user-facing strings in English; bilingual comments are fine
 
-## Workflow / 流程
+## Workflow
 
 1. Fork → branch (`feat/xxx` or `fix/xxx`)
-2. Test manually in `demo/index.html`, `demo/demo_vue.html`, `demo/demo_react.html`
+2. Test manually in the demo pages (vanilla / Vue / React)
 3. Commit with a clear message (conventional commits preferred: `feat:`, `fix:`, `docs:`)
 4. Open a Pull Request
 
-## Reporting bugs / 报告问题
+## Build scripts
+
+After modifying `src/json-editor.js` (the core), sync it into the adapter bundles and rebuild the minified files:
+
+```bash
+node scripts/sync_core.js   # sync core into json-vue.js / json-react.js
+node scripts/minify.js      # regenerate dist/*.min.js
+```
+
+## Reporting bugs
 
 Open an issue with:
 - Browser + version

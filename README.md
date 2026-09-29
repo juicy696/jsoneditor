@@ -1,50 +1,40 @@
-﻿# JSON Editor (JED) 🏮
+# JSON Editor (JED)
 
 **Zero-dependency, single-file JSON editor + mindmap viewer.**
-**单文件零依赖的 JSON 编辑器 + 思维导图。**
 
 Works with vanilla JS, Vue 3 and React 18 — no build step, no bundler, no npm install required.
-支持原生 JS、Vue 3、React 18 —— 无需构建、无需打包器，甚至无需 npm install。
 
 ---
 
 ## ✨ Features
 
 - **Dual view** — structured editor + mind map, editing in both, synced in real time
-  双视图 —— 结构化编辑器 + 思维导图，双端可编辑，实时同步
 - **Syntax-colored structure** — braces colored by nesting depth (rainbow layers), types color-coded
-  括号按嵌套深度彩虹着色，key/value 类型分色
-- **Smart editing** — click key/value to edit inline; type `{"a":1}` to convert to object, `true/false/null` literals, pure numbers auto-detect, plain text auto-quoted
-  智能编辑 —— 点击内联编辑；输入 JSON 自动转对象/数组，`true/false/null` 识别为字面量，纯数字转数值，纯文本自动补引号
+- **Smart editing** — click key/value to edit inline; type `{"a":1}` to convert to object, `true/false/null` recognized as literals, pure numbers auto-detected, plain text auto-quoted
 - **Container matching** — `{}` inserts key-value pairs, `[]` inserts array elements
-  容器匹配 —— `{}` 中插键值对，`[]` 中插数组元素
 - **Mind map canvas** — drag to pan, scroll to zoom (30%–300%), root node shows `root(n)`
-  导图画布 —— 拖拽平移、滚轮缩放，根节点显示 root(n)
 - **Text view** — raw JSON with copy, one-click apply-back to structure
-  文本视图 —— 原始 JSON + 复制，一键应用回结构
 - **Thin scrollbars, 50vh max-height, theme (light/dark), readonly mode**
-  5px 细滚动条、最大高度限制、明暗主题、只读模式
-- **~45 KB per file, zero dependencies** — smaller than most icons libraries
-  每个文件仅 ~45KB，零依赖
+- **~45 KB per file, zero dependencies** — smaller than most icon libraries
 
 ---
 
-## 📦 Install / 安装
+## 📦 Install
 
 ### Option A — CDN (recommended, no install)
 
 ```html
 <!-- Vanilla JS -->
-<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-editor.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/jsoneditor@main/src/json-editor.js"></script>
 
 <!-- Vue 3 -->
 <script src="https://unpkg.com/vue@3"></script>
-<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-vue.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/jsoneditor@main/src/json-vue.js"></script>
 
 <!-- React 18 -->
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-react.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/jsoneditor@main/src/json-react.js"></script>
 ```
 
 ### Option B — npm
@@ -65,7 +55,7 @@ Download `src/json-editor.js` (or the vue/react variant) and include it locally.
 
 ---
 
-## 🚀 Usage / 使用
+## 🚀 Usage
 
 ### Vanilla JS
 
