@@ -1,4 +1,4 @@
-# JSON Editor (JED) 🏮
+﻿# JSON Editor (JED) 🏮
 
 **Zero-dependency, single-file JSON editor + mindmap viewer.**
 **单文件零依赖的 JSON 编辑器 + 思维导图。**
@@ -35,28 +35,28 @@ Works with vanilla JS, Vue 3 and React 18 — no build step, no bundler, no npm 
 
 ```html
 <!-- Vanilla JS -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/json-editor@main/src/json-editor.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-editor.js"></script>
 
 <!-- Vue 3 -->
 <script src="https://unpkg.com/vue@3"></script>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/json-editor@main/src/json-vue.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-vue.js"></script>
 
 <!-- React 18 -->
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/json-editor@main/src/json-react.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/juicy696/json-editor@main/src/json-react.js"></script>
 ```
 
 ### Option B — npm
 
 ```bash
-npm install @jed/json-editor
+npm install @juicy696/jsoneditor
 ```
 
 ```js
 // Vanilla (UMD-style global, works in browser script tag)
-// Vue project: import '@jed/json-editor/vue'
-// React project: import '@jed/json-editor/react'
+// Vue project: import '@juicy696/jsoneditor/vue'
+// React project: import '@juicy696/jsoneditor/react'
 ```
 
 ### Option C — download
@@ -170,4 +170,4 @@ Commercial licensing, custom development and paid support: zhuxi0906@gmail.com
 
 ---
 
-**Live demo**: https://YOUR_USERNAME.github.io/json-editor/ · **npm**: `@jed/json-editor`
+**Live demo**: https://juicy696.github.io/jsoneditor/ · **npm**: `@juicy696/jsoneditor`

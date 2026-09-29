@@ -1,8 +1,8 @@
-// JsonStudio shared nav + footer, injected via document.write
+﻿// JsonStudio shared nav + footer, injected via document.write
 // 使用：页面头部 <script src="assets/nav.js"></script>（需先加载 site.css）
 (function () {
   var ROOT = ''; // 与 index.html 同级
-  var github_url = 'https://github.com/YOUR_USERNAME/json-editor';
+  var github_url = 'https://github.com/juicy696/jsoneditor';
 
   function nav(active) {
     var links = [

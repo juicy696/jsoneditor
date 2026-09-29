@@ -1,4 +1,4 @@
-# Contributing / 贡献指南
+﻿# Contributing / 贡献指南
 
 Thanks for your interest in contributing! / 感谢你有兴趣贡献！
 
@@ -7,7 +7,7 @@ Thanks for your interest in contributing! / 感谢你有兴趣贡献！
 No build step required. The library is plain JavaScript.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/json-editor.git
+git clone https://github.com/juicy696/jsoneditor.git
 cd json-editor
 # open demo/index.html in a browser — that's the whole dev environment
 ```

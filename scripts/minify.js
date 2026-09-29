@@ -1,4 +1,4 @@
-// 激进 minify（正式构建脚本，放 repo/scripts 下长期保留）
+﻿// 激进 minify（正式构建脚本，放 repo/scripts 下长期保留）
 const fs = require('fs');
 
 function aggressive_minify(src) {
@@ -107,7 +107,7 @@ const files = [
   [ROOT + '/src/json-vue.js', ROOT + '/dist/json-vue.min.js'],
   [ROOT + '/src/json-react.js', ROOT + '/dist/json-react.min.js']
 ];
-const banner = '/* JsonStudio JSON Editor v1.0.0 | (c) 2026 Jakey Zhu | Apache-2.0 | github.com/YOUR_USERNAME/json-editor */\n';
+const banner = '/* JsonStudio JSON Editor v1.0.0 | (c) 2026 Jakey Zhu | Apache-2.0 | github.com/juicy696/jsoneditor */\n';
 fs.mkdirSync(ROOT + '/dist', { recursive: true });
 files.forEach(function (p) {
   const src = fs.readFileSync(p[0], 'utf8');

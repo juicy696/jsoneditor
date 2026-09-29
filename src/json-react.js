@@ -1,11 +1,11 @@
-/**
+﻿/**
  * json-editor.js  v1.0.0
  * Single-file JSON editor + mindmap plugin (zero dependencies, no framework)
  *
  * Copyright 2026 Jakey Zhu (zhuxi0906@gmail.com)
  * Licensed under the Apache License, Version 2.0 — https://www.apache.org/licenses/LICENSE-2.0
  * Redistributions and modifications must retain this notice, the LICENSE and NOTICE files.
- * GitHub: https://github.com/YOUR_USERNAME/json-editor
+ * GitHub: https://github.com/juicy696/jsoneditor
  *
  * Usage 1: auto-scan <json> tags (multiple instances)
  *   <json>{"a":1}</json>

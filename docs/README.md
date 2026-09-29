@@ -1,4 +1,4 @@
-# JsonStudio Website
+﻿# JsonStudio Website
 
 The promotion website, served via GitHub Pages from this `docs/` directory.
 
@@ -34,4 +34,4 @@ docs/
 ## TODO
 
 - [ ] 使用文档目前为中文，定稿后翻译为英文
-- [ ] 替换 `YOUR_USERNAME`（nav.js、各 html 中 GitHub 链接、README）
+- [ ] 替换 `juicy696`（nav.js、各 html 中 GitHub 链接、README）
